@@ -1,0 +1,714 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บุคลากรหมู่บ้าน - หมู่บ้านซับประดู่</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="logo/logotitle.png" />
+
+    <style>
+        :root {
+            --primary: #1a3a5c;
+            --accent: #c8a951;
+            --bg: #f0f4f8;
+            --white: #ffffff;
+            --text-dark: #1a2533;
+            --text-light: #4a6080;
+            --shadow: 0 10px 30px rgba(26, 58, 92, 0.08);
+        }
+
+        body {
+            font-family: 'Sarabun', 'Noto Sans Thai';
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(135deg, var(--white) 0%, #e8edf4 100%);
+            padding: 80px 20px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 42px;
+            color: var(--primary);
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 i {
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        header p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-top: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: rgba(26, 58, 92, 0.08);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: 1;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            max-width: 1200px;
+            margin: -30px auto 100px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Grid & Cards --- */
+        .page-section {
+            margin-bottom: 50px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(200, 169, 81, 0.15);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            color: var(--primary);
+            font-size: 28px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* สไตล์สำหรับ h1 ที่ใช้ในหน้าเดิมของคุณ (ปรับให้เหมือน h2) */
+        .section-heading h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .person-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+            width: 100%;
+        }
+
+        .person-card {
+            background: var(--white);
+            border: 1px solid rgba(26, 58, 92, 0.1);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .person-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(200, 169, 81, 0.1), transparent);
+            z-index: 0;
+        }
+
+        .person-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(26, 58, 92, 0.12);
+            border-color: var(--accent);
+        }
+
+        .person-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .person-card:hover .person-avatar {
+            transform: scale(1.05);
+        }
+
+        .person-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .person-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .person-role {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .person-dept {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* แยกผู้นำให้เด่นขึ้น */
+        .leader-card {
+            max-width: 320px;
+            width: 100%;
+            border: 2px solid var(--accent);
+        }
+
+        .leader-card .person-avatar {
+            width: 140px;
+            height: 140px;
+            border-color: var(--accent);
+        }
+
+        /* --- Floating Buttons --- */
+        .float-back {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(26, 58, 92, 0.2);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .float-back:hover {
+            background: var(--accent);
+            transform: translateX(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .float-theme {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: var(--white);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .float-theme:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Language Floating Button --- */
+        .float-lang {
+            position: fixed;
+            bottom: 85px;
+            right: 30px;
+            min-width: 45px;
+            height: 45px;
+            padding: 0 12px;
+            background: #ffffff;
+            color: #1a3a5c;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .float-lang:hover {
+            transform: scale(1.05);
+        }
+
+        .lang-menu-float {
+            position: absolute;
+            bottom: 55px;
+            right: 0;
+            background: #ffffff;
+            min-width: 100px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid #eee;
+        }
+
+        .float-lang.active .lang-menu-float {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-menu-float a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            text-align: left;
+        }
+
+        .lang-menu-float a:hover {
+            background-color: #f0f4f8;
+            color: #1a3a5c;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 20px 40px;
+            }
+
+            header h1 {
+                font-size: 32px;
+            }
+
+            .float-back {
+                bottom: 20px;
+                left: 20px;
+                padding: 8px 18px;
+                font-size: 14px;
+            }
+
+            .float-theme {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .float-lang {
+                bottom: 70px;
+                right: 20px;
+                height: 40px;
+            }
+        }
+
+        /* --- Dark Mode --- */
+        body.dark-mode {
+            background-color: #0a0f1a;
+            color: #d0dce8;
+        }
+
+        body.dark-mode header {
+            background: #070d18;
+        }
+
+        body.dark-mode header h1,
+        body.dark-mode .section-heading h2,
+        body.dark-mode .section-heading h1 {
+            color: #d0dce8;
+        }
+
+        body.dark-mode .person-card {
+            background-color: #0f1c2e;
+            border-color: #1e3a58;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        body.dark-mode .person-card::before {
+            background: linear-gradient(to bottom, rgba(200, 169, 81, 0.05), transparent);
+        }
+
+        body.dark-mode .person-name {
+            color: #ffffff;
+        }
+
+        body.dark-mode .person-role {
+            color: var(--accent);
+        }
+
+        body.dark-mode .person-dept {
+            color: #7a98b8;
+        }
+
+        body.dark-mode .person-avatar {
+            border-color: #162436;
+            background: #0f1c2e;
+        }
+
+        body.dark-mode .leader-card {
+            border-color: var(--accent);
+        }
+
+        body.dark-mode .leader-card .person-avatar {
+            border-color: var(--accent);
+        }
+
+        body.dark-mode .float-back {
+            background-color: #162436;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        body.dark-mode .float-back:hover {
+            background-color: var(--accent);
+            color: #0a0f1a;
+        }
+
+        body.dark-mode .float-theme {
+            background: #0f1c2e;
+            color: var(--accent);
+            border-color: #1e3a58;
+        }
+
+        body.dark-mode header h1 i {
+            color: var(--accent) !important;
+        }
+
+        body.dark-mode .float-lang {
+            background: #0f1c2e;
+            color: #c8a951;
+            border-color: #1e3a58;
+        }
+
+        body.dark-mode .lang-menu-float {
+            background: #162436;
+            border-color: #1e3a58;
+        }
+
+        body.dark-mode .lang-menu-float a {
+            color: #d0dce8;
+        }
+
+        body.dark-mode .lang-menu-float a:hover {
+            background-color: #0f1c2e;
+            color: #c8a951;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- [แก้ไข] ใส่ data-i18n ให้แปลตรงกับคลังศัพท์ -->
+        <h1><i class="fa-solid fa-users"></i> <span data-i18n="personnel_page_title">คณะกรรมการหมู่บ้าน</span></h1>
+        <p data-i18n="personnel_page_desc">ผู้นำและบุคคลากรผู้ขับเคลื่อนการพัฒนาหมู่บ้านซับประดู่</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ผู้นำหมู่บ้าน -->
+        <section class="page-section">
+            <div class="section-heading">
+                <!-- [แก้ไข] ใส่ data-i18n -->
+                <span class="section-badge" data-i18n="badge_leader">หัวหน้า</span>
+                <h2 data-i18n="head_leader">ผู้นำหมู่บ้าน</h2>
+            </div>
+            <div style="display:flex;justify-content:center;">
+                <div class="person-card leader-card">
+                    <div class="person-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" style="width: 50%; opacity: 0.5;">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                    </div>
+                    <!-- [แก้ไข] เพิ่ม data-i18n สำหรับชื่อ ตำแหน่ง และรายละเอียด -->
+                    <div class="person-name" data-i18n="leader_name">นางบุญสิตา รัตนดิลก ณ ภูเก็ต</div>
+                    <div class="person-role" data-i18n="leader_role">ผู้ใหญ่บ้านซับประดู่ หมู่ 6</div>
+                    <div class="person-dept" data-i18n="leader_dept">ทำหน้าที่ประธานคณะกรรมการหมู่บ้าน ดูแลทะเบียนราษฎร
+                        โครงการชุมชน</div>
+                    <div style="margin-top:10px;font-size:0.8rem;color:var(--text-muted);"><i class="fa-solid fa-phone"
+                            style="width:13px;height:13px;vertical-align:middle;"></i> 08X-XXX-XXXX</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- คณะกรรมการ -->
+        <section class="page-section">
+            <div class="section-heading">
+                <!-- [แก้ไข] ใส่ data-i18n -->
+                <span class="section-badge" data-i18n="badge_committee">คณะกรรมการ</span>
+                <h1 data-i18n="head_committee">คณะกรรมการหมู่บ้าน</h1>
+            </div>
+            <div class="person-grid">
+                <div class="person-card">
+                    <div class="person-avatar">
+                        <img src="https://www.muakleksao.go.th/UserFiles/Image/2026/sapa/sodsai.jpg" alt="นางสดใส สามี"
+                            onerror="this.src='logo/logo.png'">
+                    </div>
+                    <!-- [แก้ไข] เพิ่ม data-i18n สำหรับชื่อ ตำแหน่ง และรายละเอียด -->
+                    <div class="person-name" data-i18n="comm1_name">นางสดใส สามี</div>
+                    <div class="person-role" data-i18n="comm1_role">สมาชิกสภา อบต. หมู่ที่ 6</div>
+                    <div class="person-dept" data-i18n="comm1_dept">ตัวแทนหมู่บ้านในการนำเสนอโครงการและประสานงานกับองค์การบริหารส่วนตำบล</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- อาสาสมัคร -->
+        <section class="page-section" style="padding-bottom:60px;">
+            <div class="section-heading">
+                <!-- [แก้ไข] ใส่ data-i18n -->
+                <span class="section-badge" data-i18n="badge_team">ทีมงาน</span>
+                <h1 data-i18n="head_team">อาสาสมัครและทีมงานชุมชน</h1>
+            </div>
+            <div class="person-grid">
+                <div class="person-card">
+                    <div class="person-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" style="width: 50%; opacity: 0.5;">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                    </div>
+                    <!-- [แก้ไข] เพิ่ม data-i18n สำหรับชื่อ ตำแหน่ง และรายละเอียด -->
+                    <div class="person-name" data-i18n="vol1_name">รอการอัปเดตข้อมูล</div>
+                    <div class="person-role" data-i18n="vol1_role">ทีมงานชุมชน</div>
+                    <div class="person-dept" data-i18n="vol1_dept">ส่วนงานสนับสนุน</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- [แก้ไข] ใส่ data-i18n ให้ปุ่มกลับ -->
+    <a href="index.html" class="float-back"><i class="fa-solid fa-arrow-left"></i> <span
+            data-i18n="btn_back">กลับ</span></a>
+
+    <div class="float-theme" id="themeToggle" title="สลับโหมดหน้าจอ">
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
+    <div class="float-lang" id="langDropdownFloat" title="เปลี่ยนภาษา">
+        <i class="fa-solid fa-globe"></i> <span id="current-lang-display-float">TH</span>
+        <div class="lang-menu-float">
+            <a href="javascript:void(0)" onclick="setLanguage('th')">🇹🇭 ไทย (TH)</a>
+            <a href="javascript:void(0)" onclick="setLanguage('en')">🇬🇧 English (EN)</a>
+            <a href="javascript:void(0)" onclick="setLanguage('zh')">🇨🇳 中文 (ZH)</a>
+        </div>
+    </div>
+
+    <script>
+        // ตรวจจับ Dark mode ตอนโหลด
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            const icon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
+
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+                if (icon) icon.classList.replace('fa-moon', 'fa-sun');
+            }
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    body.classList.toggle('dark-mode');
+                    if (body.classList.contains('dark-mode')) {
+                        localStorage.setItem('theme', 'dark');
+                        if (icon) icon.classList.replace('fa-moon', 'fa-sun');
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                        if (icon) icon.classList.replace('fa-sun', 'fa-moon');
+                    }
+                });
+            }
+        });
+
+        // ============================================
+        // [แก้ไข] ข้อมูลศัพท์ให้ตรงกับคีย์ที่ใส่ไว้ใน HTML
+        // ============================================
+        const translations = {
+            th: {
+                personnel_page_title: "คณะกรรมการหมู่บ้าน",
+                personnel_page_desc: "ผู้นำและบุคคลากรผู้ขับเคลื่อนการพัฒนาหมู่บ้านซับประดู่",
+                badge_leader: "หัวหน้า",
+                head_leader: "ผู้นำหมู่บ้าน",
+                badge_committee: "คณะกรรมการ",
+                head_committee: "คณะกรรมการหมู่บ้าน",
+                badge_team: "ทีมงาน",
+                head_team: "อาสาสมัครและทีมงานชุมชน",
+                btn_back: "กลับ",
+                // เพิ่มคำแปลรายชื่อ
+                leader_name: "นางบุญสิตา รัตนดิลก ณ ภูเก็ต",
+                leader_role: "ผู้ใหญ่บ้านซับประดู่ หมู่ 6",
+                leader_dept: "ทำหน้าที่ประธานคณะกรรมการหมู่บ้าน ดูแลทะเบียนราษฎร โครงการชุมชน",
+                comm1_name: "นางสดใส สามี",
+                comm1_role: "สมาชิกสภา อบต. หมู่ที่ 6",
+                comm1_dept: "ตัวแทนหมู่บ้านในการนำเสนอโครงการและประสานงานกับองค์การบริหารส่วนตำบล",
+                vol1_name: "รอการอัปเดตข้อมูล",
+                vol1_role: "ทีมงานชุมชน",
+                vol1_dept: "ส่วนงานสนับสนุน"
+            },
+            en: {
+                personnel_page_title: "Village Personnel",
+                personnel_page_desc: "Leaders and personnel driving the development of Sub Pradu village",
+                badge_leader: "Head",
+                head_leader: "Village Leaders",
+                badge_committee: "Committee",
+                head_committee: "Village Committee",
+                badge_team: "Team",
+                head_team: "Volunteers & Community Staff",
+                btn_back: "Back",
+                // เพิ่มคำแปลรายชื่อ
+                leader_name: "Mrs. Boonsita Rattanadilok Na Phuket",
+                leader_role: "Headman of Sub Pradu Village Moo 6",
+                leader_dept: "Acts as the chairman of the village committee, oversees civil registration and community projects",
+                comm1_name: "Mrs. Sodsai Samee",
+                comm1_role: "SAO Member Moo 6",
+                comm1_dept: "Village representative for presenting projects and coordinating with the Subdistrict Administrative Organization",
+                vol1_name: "Pending Update",
+                vol1_role: "Community Team",
+                vol1_dept: "Support Department"
+            },
+            zh: {
+                personnel_page_title: "村庄人员",
+                personnel_page_desc: "推动萨普拉杜村发展的领导人和工作人员",
+                badge_leader: "主管",
+                head_leader: "村领导",
+                badge_committee: "委员会",
+                head_committee: "村委会",
+                badge_team: "团队",
+                head_team: "志愿者和社区工作人员",
+                btn_back: "返回",
+                // เพิ่มคำแปลรายชื่อ
+                leader_name: "Boonsita Rattanadilok Na Phuket 女士",
+                leader_role: "萨普拉杜村第6村村长",
+                leader_dept: "担任村委会主席，负责户籍登记和社区项目",
+                comm1_name: "Sodsai Samee 女士",
+                comm1_role: "第6村 SAO 成员",
+                comm1_dept: "村代表，负责提出项目并与分区行政组织协调",
+                vol1_name: "等待更新",
+                vol1_role: "社区团队",
+                vol1_dept: "支持部门"
+            }
+        };
+
+        function applyCurrentLanguage() {
+            const lang = localStorage.getItem("app_lang") || "th";
+
+            // เปลี่ยนข้อความในแท็กที่มี data-i18n
+            document.querySelectorAll("[data-i18n]").forEach(element => {
+                const key = element.getAttribute("data-i18n");
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            // อัปเดตข้อความบนปุ่ม dropdown เป็น TH, EN, ZH
+            const langDisplayFloat = document.getElementById("current-lang-display-float");
+            if (langDisplayFloat) {
+                const displayMap = { th: "TH", en: "EN", zh: "ZH" };
+                langDisplayFloat.innerText = displayMap[lang];
+            }
+        }
+
+        function setLanguage(lang) {
+            localStorage.setItem("app_lang", lang);
+            applyCurrentLanguage();
+
+            const langDropdownFloat = document.getElementById("langDropdownFloat");
+            if (langDropdownFloat) langDropdownFloat.classList.remove("active");
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const langDropdownFloat = document.getElementById("langDropdownFloat");
+            if (langDropdownFloat) {
+                langDropdownFloat.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    langDropdownFloat.classList.toggle("active");
+                });
+            }
+
+            document.addEventListener("click", (e) => {
+                if (langDropdownFloat && !langDropdownFloat.contains(e.target)) {
+                    langDropdownFloat.classList.remove("active");
+                }
+            });
+
+            // รันแปลภาษาตั้งแต่ตอนโหลด
+            applyCurrentLanguage();
+        });
+    </script>
+</body>
+
+</html>

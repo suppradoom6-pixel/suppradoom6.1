@@ -1,0 +1,1524 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>หมู่บ้านซับประดู่</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="logo/logotitle.png" />
+  <style>
+    .theme-toggle-btn {
+      transition: background-color 0.4s ease, color 0.4s ease, border 0.4s ease, box-shadow 0.4s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .theme-toggle-btn:active {
+      transform: scale(0.92) !important;
+      transition: transform 0.1s ease !important;
+    }
+
+    .theme-toggle-btn i {
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important;
+    }
+
+    body.dark-mode .theme-toggle-btn i {
+      transform: rotate(30deg) scale(1.1) !important;
+      opacity: 1 !important;
+    }
+
+    body:not(.dark-mode) .theme-toggle-btn i {
+      transform: rotate(0deg) scale(1) !important;
+      opacity: 0.9 !important;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Sarabun', 'Noto Sans Thai';
+      background-color: #ffffff;
+    }
+
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding-bottom: 5px;
+    }
+
+    .topbar {
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4d3328;
+      padding: 8px 0;
+      position: relative;
+    }
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      position: absolute;
+      right: 25px;
+      z-index: 1001;
+    }
+
+    .hamburger-menu .line {
+      width: 30px;
+      height: 3px;
+      background-color: #4d3328;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger-menu.open .line:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger-menu.open .line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-menu.open .line:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+
+    .logo img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+      transition: height 0.3s;
+    }
+
+    .menu-bar {
+      background: var(--accent);
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      padding: 12px 40px;
+      width: fit-content;
+      border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-bar a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .menu-bar a:hover {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .banner-wrapper {
+      width: 100%;
+      line-height: 0;
+    }
+
+    .responsive-banner {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .project-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 60px 50px;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .project-info {
+      width: 28%;
+      min-width: 250px;
+    }
+
+    .project-info h2 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #1c1918;
+      margin-bottom: 18px;
+    }
+
+    .project-info .line {
+      width: 80px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .project-info p {
+      font-size: 15px;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .view-btn {
+      display: inline-block;
+      padding: 10px 30px;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+      border-radius: 5px;
+    }
+
+    .view-btn:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .project-slider {
+      width: 70%;
+      display: flex;
+      gap: 26px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 15px;
+      flex: 1;
+    }
+
+    .project-slider::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .project-slider::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+
+    .project-card {
+      min-width: 280px;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      color: white;
+      font-size: 17px;
+      text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .bottom-line {
+      width: 90%;
+      height: 2px;
+      background: #4d3328;
+      margin: 40px auto 0;
+    }
+
+    .about-section {
+      background-color: #ffffff;
+      padding: 60px 20px;
+      color: #333;
+    }
+
+    .about-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 50px;
+      margin-bottom: 60px;
+    }
+
+    .about-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .about-text h2 {
+      font-size: 2em;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .about-desc {
+      color: #777;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      font-size: 0.95em;
+    }
+
+    .about-btn {
+      display: inline-block;
+      padding: 10px 30px;
+      border: 1px solid #4d3328;
+      color: #4d3328;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+      border-radius: 5px;
+    }
+
+    .about-btn:hover {
+      background-color: #4d3328;
+      color: white;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid #000000;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-item i {
+      font-size: 2.2em;
+      color: #000000;
+      margin-bottom: 10px;
+    }
+
+    .stat-number {
+      font-size: 2.2em;
+      font-weight: bold;
+      color: #333;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8em;
+      color: #999;
+      letter-spacing: 1px;
+      margin-top: 5px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .site-footer {
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #777777;
+      border-top: 1px solid #eaeaea;
+    }
+
+    .lang-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--header-text);
+      border-radius: 24px;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition);
+      font-family: var(--font);
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      background: #ffffff;
+      min-width: 120px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1000;
+    }
+
+    .lang-dropdown.active .lang-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-menu a {
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      font-family: var(--font);
+    }
+
+    .lang-menu a:hover {
+      background-color: #f0f4f8;
+      color: var(--primary);
+    }
+
+    body.dark-mode .lang-menu {
+      background: #162436;
+      border: 1px solid #1e3a58;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark-mode .lang-menu a {
+      color: #d0dce8;
+    }
+
+    body.dark-mode .lang-menu a:hover {
+      background-color: #0f1c2e;
+      color: var(--accent);
+    }
+
+    @media (max-width: 992px) {
+      .project-section {
+        flex-direction: column;
+        padding: 40px 20px;
+      }
+
+      .project-info {
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .project-info .line {
+        margin: 0 auto 18px auto;
+      }
+
+      .project-slider {
+        width: 100%;
+      }
+
+      .about-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .about-text {
+        text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .responsive-banner {
+          height: auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .topbar {
+          justify-content: center !important;
+          min-height: 65px !important;
+        }
+
+        .logo {
+          padding: 0 !important;
+          margin: 0 auto !important;
+        }
+
+        .logo img {
+          height: 65px !important;
+        }
+
+        .hamburger-menu {
+          display: flex !important;
+          top: 50% !important;
+          transform: translateY(-50%) !important;
+          right: 20px !important;
+          margin: 0 !important;
+        }
+
+        .nav-wrapper {
+          position: absolute !important;
+          top: 100% !important;
+          left: 0 !important;
+          width: 100% !important;
+          flex-direction: column;
+          background: #ffaf36;
+          padding: 10px 0 25px 0 !important;
+          border-radius: 0 0 25px 25px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          visibility: hidden;
+          opacity: 0;
+          transform: translateY(-20px);
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+          z-index: 999;
+          gap: 0 !important;
+        }
+
+        .nav-wrapper.active {
+          visibility: visible;
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .theme-toggle-btn {
+          position: static !important;
+          transform: none !important;
+          width: 85% !important;
+          height: 50px !important;
+          margin: 15px auto 0 auto !important;
+          border-radius: 50px !important;
+          background-color: rgba(255, 255, 255, 0.25) !important;
+          color: #ffffff !important;
+          box-shadow: none !important;
+          justify-content: center !important;
+          gap: 12px;
+        }
+
+        .about-content {
+          flex-direction: column;
+          gap: 30px;
+          text-align: center;
+        }
+
+        .about-text h2::after {
+          margin: 10px auto;
+        }
+
+        .stats-row {
+          flex-direction: column;
+          gap: 30px;
+          text-align: center;
+        }
+
+        .project-section {
+          padding: 40px 20px;
+        }
+
+        body.dark-mode .nav-wrapper {
+          background-color: #000000 !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        body.dark-mode .theme-toggle-btn {
+          background-color: rgba(255, 255, 255, 0.1) !important;
+          color: #ffaf36 !important;
+        }
+      }
+    }
+
+    .main-footer {
+      background-color: #fcfaf8;
+      padding: 60px 20px 20px;
+      border-top: 1px solid #eaeaea;
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-heading {
+      font-size: 18px;
+      color: #1a3a5c;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .footer-map iframe {
+      width: 100%;
+      height: 220px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .contact-list li {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .contact-list i {
+      color: #ffaf36;
+      margin-top: 4px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background-color: #ffffff;
+      color: #4d3328;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .social-btn.facebook:hover {
+      background-color: #1877f2;
+      color: #ffffff;
+    }
+
+    .social-btn.line:hover {
+      background-color: #06c755;
+      color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s;
+      z-index: 999;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: #ffffff;
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-5px);
+    }
+
+    body.dark-mode,
+    body.dark-mode .about-section {
+      background-color: #0a0f1a !important;
+      color: #d0dce8 !important;
+    }
+
+    body.dark-mode .fixed-header {
+      background-color: #070d18 !important;
+    }
+
+    body.dark-mode .topbar,
+    body.dark-mode .project-info h2,
+    body.dark-mode .project-info p,
+    body.dark-mode .about-text h2,
+    body.dark-mode .about-desc,
+    body.dark-mode .stat-number,
+    body.dark-mode .stat-label,
+    body.dark-mode .footer-heading,
+    body.dark-mode .contact-list li {
+      color: #d0dce8 !important;
+    }
+
+    body.dark-mode .main-footer {
+      background-color: #0f1c2e !important;
+      border-top: 1px solid #1e3a58 !important;
+    }
+
+    body.dark-mode .view-btn,
+    body.dark-mode .about-btn {
+      border-color: var(--accent) !important;
+      color: var(--accent) !important;
+    }
+
+    body.dark-mode .view-btn:hover,
+    body.dark-mode .about-btn:hover {
+      background-color: var(--accent) !important;
+      color: #0a0f1a !important;
+    }
+
+    body.dark-mode .social-btn {
+      background-color: #162436 !important;
+      color: var(--accent) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    body.dark-mode .fa-calendar-check,
+    body.dark-mode .fa-eye,
+    body.dark-mode .fa-clock-rotate-left,
+    body.dark-mode .fa-headset,
+    body.dark-mode .fa-newspaper,
+    body.dark-mode .fa-users {
+      color: var(--accent) !important;
+      opacity: 0.9;
+    }
+
+    body.dark-mode .back-to-top {
+      background-color: #162436 !important;
+      color: var(--accent) !important;
+      border: 1px solid var(--accent) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    body.dark-mode .back-to-top:hover {
+      background-color: var(--accent) !important;
+      color: #0a0f1a !important;
+    }
+
+    body.dark-mode .site-footer {
+      color: #7a98b8 !important;
+      border-top: 1px solid #1e3a58 !important;
+    }
+
+    body.dark-mode .site-brand .logo-icon {
+      background: #0f1c2e;
+    }
+
+    body.dark-mode .site-brand,
+    body.dark-mode .brand-sub {
+      color: #d0dce8;
+    }
+
+    body.dark-mode .hamburger-menu .line {
+      background-color: var(--accent) !important;
+    }
+
+    /* ---------- CSS Variables ---------- */
+    :root {
+      --primary: #1a3a5c;
+      --primary-mid: #1e4976;
+      --primary-light: #2a6099;
+      --accent: #c8a951;
+      --accent-hover: #e0be6a;
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #e8edf4;
+      --text: #1a2533;
+      --text-muted: #4a6080;
+      --border: #ccd8e8;
+      --header-bg: #1a3a5c;
+      --header-text: #ffffff;
+      --nav-hover: rgba(255, 255, 255, 0.15);
+      --card-shadow: 0 4px 20px rgba(26, 58, 92, 0.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.3s ease;
+      --font: 'Sarabun', 'Noto Sans Thai', sans-serif;
+    }
+
+    body.dark-mode {
+      --primary: #0d1f33;
+      --primary-mid: #122840;
+      --primary-light: #1a3a5c;
+      --accent: #e0be6a;
+      --accent-hover: #f5d87a;
+      --bg: #0a0f1a;
+      --surface: #0f1c2e;
+      --surface2: #162436;
+      --text: #d0dce8;
+      --text-muted: #7a98b8;
+      --border: #1e3a58;
+      --header-bg: #070d18;
+      --header-text: #c8dce8;
+      --nav-hover: rgba(200, 220, 240, 0.12);
+      --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--header-bg);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+      transition: background var(--transition), box-shadow var(--transition);
+      font-family: var(--font);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
+
+    .site-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--header-text);
+      font-weight: 700;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: transform var(--transition);
+    }
+
+    .site-brand:hover {
+      transform: translateY(-1px);
+    }
+
+    .site-brand .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--surface);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1a3a5c;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow var(--transition);
+    }
+
+    .site-brand:hover .logo-icon {
+      transform: scale(1.08) rotate(5deg);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    }
+
+    .site-brand .logo-icon img {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .site-brand div:first-child {
+      font-weight: 600;
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      font-weight: 400;
+      opacity: 0.75;
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    nav#mainNav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-link {
+      color: var(--header-text);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color var(--transition), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      white-space: nowrap;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--nav-hover);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: -1;
+      border-radius: var(--radius-sm);
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+      transform: translateY(0);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent);
+    }
+
+    .nav-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .banner-wrapper-new {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      max-height: 420px;
+      font-family: var(--font);
+    }
+
+    .banner-wrapper-new img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(26, 58, 92, 0.15) 0%, rgba(26, 58, 92, 0.55) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 40px 48px;
+    }
+
+    body.dark-mode .banner-overlay {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.72) 100%);
+    }
+
+    .banner-text h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+      margin-bottom: 6px;
+      margin-top: 0;
+    }
+
+    .banner-text p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+      margin: 0;
+    }
+
+    .hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--header-text);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: var(--primary);
+      padding: 8px 24px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--font);
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav .nav-link {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0;
+    }
+
+    .mobile-nav .nav-link:last-child {
+      border-bottom: none;
+    }
+
+    @media (max-width: 768px) {
+      nav#mainNav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .brand-sub {
+        display: none;
+      }
+
+      .header-inner {
+        padding: 0 16px;
+      }
+
+      .banner-overlay {
+        padding: 30px 20px;
+      }
+
+      .banner-text h1 {
+        font-size: 1.8rem;
+      }
+
+      .banner-text p {
+        font-size: 0.95rem;
+      }
+
+      .banner-wrapper-new img {
+        height: auto;
+        min-height: 250px;
+      }
+    }
+  </style>
+
+  <!-- [สำคัญ] สคริปต์ตรวจสอบโหมดมืดทันทีที่โหลดหน้าจอ ป้องกันเว็บกระพริบ -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark-mode");
+    }
+  </script>
+</head>
+
+<body id="top-page">
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-brand">
+        <div class="logo-icon"><img src="logo/logotitle.png" alt="Logo"></div>
+        <div>
+          <div class="brand-title" data-i18n="brand_title">หมู่บ้านซับประดู่</div>
+          <div class="brand-sub" data-i18n="brand_sub">เว็บไซต์ทางการชุมชน</div>
+        </div>
+      </a>
+
+      <!-- สังเกตว่าเปลี่ยนลิงก์ history.html เป็นตัวพิมพ์เล็ก เพื่อรองรับเซิร์ฟเวอร์ Linux -->
+      <nav id="mainNav" aria-label="เมนูหลัก">
+        <a href="index.html" class="nav-link" id="nav-home" data-i18n="nav_home">หน้าแรก</a>
+        <a href="news.html" class="nav-link" id="nav-news" data-i18n="nav_news">ข่าวสาร</a>
+        <a href="history.html" class="nav-link" id="nav-history" data-i18n="nav_history">ประวัติ</a>
+        <a href="personnel.html" class="nav-link" id="nav-personnel" data-i18n="nav_personnel">บุคลากร</a>
+        <a href="contact.html" class="nav-link" id="nav-contact" data-i18n="nav_contact">ติดต่อ</a>
+      </nav>
+
+      <div class="header-controls">
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-btn" aria-label="เปลี่ยนภาษา">
+            <i class="fa-solid fa-globe"></i>
+            <span id="current-lang-display">TH</span>
+          </button>
+          <div class="lang-menu">
+            <a href="javascript:void(0)" onclick="setLanguage('th')">ไทย (TH)</a>
+            <a href="javascript:void(0)" onclick="setLanguage('en')">English (EN)</a>
+            <a href="javascript:void(0)" onclick="setLanguage('zh')">中文 (CN)</a>
+          </div>
+        </div>
+
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="เปลี่ยนธีม"
+          style="background:transparent; border:1px solid rgba(255,255,255,0.2); border-radius: 24px; color: white; padding: 6px 14px; font-size:0.85rem; display:flex; gap:6px; font-family:var(--font); cursor:pointer;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" style="width:16px;height:16px;">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+          <span class="theme-text" data-i18n="theme_light">โหมดกลางวัน</span>
+        </button>
+
+        <button id="hamburger" class="hamburger" aria-label="เปิดเมนู" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <nav id="mobileNav" class="mobile-nav" aria-label="เมนูมือถือ">
+      <a href="index.html" class="nav-link" data-i18n="nav_home">หน้าแรก</a>
+      <a href="news.html" class="nav-link" data-i18n="nav_news">ข่าวสาร</a>
+      <a href="history.html" class="nav-link" data-i18n="nav_history">ประวัติบ้านซับประดู่</a>
+      <a href="personnel.html" class="nav-link" data-i18n="nav_personnel">บุคลากร</a>
+      <a href="contact.html" class="nav-link" data-i18n="nav_contact">ติดต่อ</a>
+    </nav>
+  </header>
+
+  <!-- ── Banner ── -->
+  <div class="banner-wrapper-new">
+    <img src="images/banner.png" alt="แบนเนอร์" loading="eager" />
+    <div class="banner-overlay">
+      <div class="banner-text">
+        <h1 data-i18n="banner_title">ยินดีต้อนรับสู่หมู่บ้านซับประดู่</h1>
+        <p data-i18n="banner_sub">เว็บไซต์ทางการชุมชน • ข่าวสาร ประกาศ และข้อมูลสำหรับชาวบ้าน</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="project-section">
+    <div class="project-info">
+      <h2 data-i18n="section_news_title">ข่าวสาร<br>และประกาศ</h2>
+      <div class="line"></div>
+      <p data-i18n="section_news_desc">ข่าวสารและประกาศเพิ่มเติม</p>
+      <a href="news.html"><button class="view-btn" data-i18n="btn_more">เพิ่มเติม</button></a>
+    </div>
+
+    <div class="project-slider" id="home-news-slider">
+      <p class="loading-text" data-i18n="loading_news">กำลังโหลดภาพกิจกรรม.....</p>
+    </div>
+  </section>
+
+  <div class="bottom-line"></div>
+
+  <div class="about-section">
+    <div class="about-wrapper">
+      <div class="about-content">
+        <div class="about-text">
+          <h2 data-i18n="section_about_title">ประวัติหมู่บ้าน</h2>
+          <div class="about-desc" data-i18n="section_about_desc">
+            หมู่บ้านซับประดู่ เป็นชุมชนที่มีความเข้มแข็ง ตั้งอยู่ในพื้นที่อันอุดมสมบูรณ์
+            ผู้คนในหมู่บ้านประกอบอาชีพเกษตรกรรมและหัตถกรรมพื้นบ้าน มีวิถีชีวิตที่เรียบง่ายและเอื้ออาทรต่อกัน
+            ภายใต้การบริหารของคณะกรรมการหมู่บ้าน ที่มุ่งพัฒนาชุมชนให้มีคุณภาพชีวิตที่ดีขึ้นอย่างต่อเนื่อง
+          </div>
+          <a href="history.html" class="about-btn" data-i18n="btn_history">ประวัติ</a>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <i class="fa-solid fa-eye"></i>
+          <div class="stat-number" id="website-visits">0</div>
+          <div class="stat-label" data-i18n="stat_visitors">ผู้เข้าชมเว็บไซต์</div>
+        </div>
+        <div class="stat-item">
+          <i class="fa-regular fa-newspaper"></i>
+          <div class="stat-number" id="news-count">0</div>
+          <div class="stat-label" data-i18n="stat_news">ข่าวสารทั้งหมด</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="main-footer" id="contact-section">
+    <div class="footer-container">
+      <div class="footer-map">
+        <h3 class="footer-heading">
+          <i class="fa-solid fa-map-location-dot"></i> <span data-i18n="footer_map">แผนที่หมู่บ้าน</span>
+        </h3>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5233.075800093523!2d101.14846794768505!3d14.683516114448876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311dd9ee87b39e8f%3A0x7786f394e1bf5a8c!2z4Lin4Lix4LiU4LiL4Lix4Lia4Lib4Lij4Liw4LiU4Li54LmI!5e1!3m2!1sth!2sth!4v1771738293559!5m2!1sth!2sth"
+          style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <div class="footer-contact">
+        <h3 class="footer-heading">
+          <i class="fa-solid fa-address-book"></i> <span data-i18n="footer_contact">ช่องทางการติดต่อ</span>
+        </h3>
+        <ul class="contact-list">
+          <li>
+            <i class="fa-solid fa-location-dot"></i>
+            <span data-i18n="footer_address">หมู่บ้านซับประดู่ หมู่ที่ 6 ตำบลมวกเหล็ก อำเภอมวกเหล็ก จังหวัดสระบุรี
+              18180<br>Suppradoo, moo6, muaklek district, muaklek, saraburi 18180, Thailand</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-phone"></i> <span data-i18n="footer_phone">084-353-6666 (กำนัน)</span>
+          </li>
+          <li><i class="fa-solid fa-envelope"></i> Suppradoom6@gmail.com</li>
+        </ul>
+
+        <h3 class="footer-heading" style="margin-top: 25px">
+          <i class="fa-solid fa-share-nodes"></i>
+          <span data-i18n="footer_follow">ติดตามข่าวสารหรือติดต่อเราผ่านช่องทางออนไลน์ได้ที่</span>
+        </h3>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/Suppradoomuaklek" class="social-btn facebook" title="Facebook"><i
+              class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://lin.ee/yygH47J" target="_blank" class="social-btn line" title="LINE Official"><i
+              class="fa-brands fa-line"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer">Copyright © <span data-i18n="footer_copyright">ซับประดู่ | All Rights Reserved</span></div>
+  </footer>
+  <a href="#top-page" class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+  </a>
+
+  <script>
+    // ============================================
+    // [อัปเดตระบบใหญ่] รวมคำแปลของทุกหน้าเข้าไว้ด้วยกัน
+    // เพื่อให้ก๊อปปี้สคริปต์ก้อนนี้ไปใช้หน้าอื่นได้เลย!
+    // ============================================
+    const translations = {
+      th: {
+        // เมนูบนสุด
+        brand_title: "หมู่บ้านซับประดู่", brand_sub: "เว็บไซต์ทางการชุมชน",
+        nav_home: "หน้าแรก", nav_news: "ข่าวสาร", nav_personnel: "บุคลากร", nav_contact: "ติดต่อ", nav_history: "ประวัติ",
+        theme_light: "โหมดกลางวัน", theme_dark: "โหมดกลางคืน", btn_back: "กลับ",
+
+        // หน้าแรก (Index)
+        banner_title: "ยินดีต้อนรับสู่หมู่บ้านซับประดู่", banner_sub: "เว็บไซต์ทางการชุมชน • ข่าวสาร ประกาศ และข้อมูลสำหรับชาวบ้าน",
+        section_news_title: "ข่าวสาร<br>และประกาศ", section_news_desc: "ข่าวสารและประกาศเพิ่มเติม", btn_more: "เพิ่มเติม",
+        loading_news: "กำลังโหลดภาพกิจกรรม.....", no_news: "ไม่พบข้อมูลข่าวสาร",
+        section_about_title: "ประวัติหมู่บ้าน", section_about_desc: "หมู่บ้านซับประดู่ เป็นชุมชนที่มีความเข้มแข็ง ตั้งอยู่ในพื้นที่อันอุดมสมบูรณ์ ผู้คนในหมู่บ้านประกอบอาชีพเกษตรกรรมและหัตถกรรมพื้นบ้าน มีวิถีชีวิตที่เรียบง่ายและเอื้ออาทรต่อกัน ภายใต้การบริหารของคณะกรรมการหมู่บ้าน ที่มุ่งพัฒนาชุมชนให้มีคุณภาพชีวิตที่ดีขึ้นอย่างต่อเนื่อง", btn_history: "ประวัติ",
+        stat_visitors: "ผู้เข้าชมเว็บไซต์", stat_news: "ข่าวสารทั้งหมด",
+
+        // Footer (ทุกหน้า)
+        footer_map: "แผนที่หมู่บ้าน", footer_contact: "ช่องทางการติดต่อ", footer_address: "หมู่บ้านซับประดู่ หมู่ที่ 6 ตำบลมวกเหล็ก อำเภอมวกเหล็ก จังหวัดสระบุรี 18180<br>Suppradoo, moo6, muaklek district, muaklek, saraburi 18180, Thailand", footer_phone: "084-353-6666 (กำนัน)", footer_follow: "ติดตามข่าวสารหรือติดต่อเราผ่านช่องทางออนไลน์ได้ที่", footer_copyright: "ซับประดู่ | All Rights Reserved",
+
+        // หน้าข่าวสาร (News)
+        news_page_title: "ข่าวสารหมู่บ้านซับประดู่", news_breaking: "ข่าวด่วน:", news_fetching: "กำลังรวบรวมข่าวสารล่าสุดจากหมู่บ้านซับประดู่...", news_search: "ค้นหาหัวข้อ หรือรายละเอียดข่าว...", news_hot: "ข่าวสารวันนี้", news_contact_box: "ติดต่อหมู่บ้าน", news_contact_desc: "แจ้งเรื่องร้องเรียนหรือสอบถามข้อมูลเพิ่มเติมผ่าน LINE Official", btn_addline: "เพิ่มเพื่อน LINE", btn_collapse: "ย่อ", news_not_found: "ไม่พบข่าวสารที่คุณค้นหา",
+
+        // หน้าประวัติ (History)
+        history_title: "ประวัติและที่มาของหมู่บ้านซับประดู่", history_intro_head: "บทนำ", history_intro_desc: "หมู่บ้านซับประดู่ หมู่ที่ 6 ตั้งอยู่ในตำบลมวกเหล็ก จังหวัดสระบุรี เป็นชุมชนที่มีประวัติศาสตร์การก่อตั้งที่น่าสนใจ โดยมีลักษณะทางกายภาพที่โดดเด่นด้วยทรัพยากรธรรมชาติและวิถีชีวิตดั้งเดิมที่เรียบง่าย", history_found_head: "ประวัติการก่อตั้ง", history_found_desc: "บ้านซับประดู่เดิมเป็นพื้นที่ป่าอุดมสมบูรณ์ มีต้นประดู่ขึ้นอยู่หนาแน่นและมีแหล่งน้ำซับตลอดปี จึงเป็นที่มาของชื่อหมู่บ้าน เริ่มมีชาวบ้านอพยพเข้ามาตั้งรกรากเพื่อทำมาหากินในด้านกสิกรรมและเกษตรกรรม จนขยายตัวเป็นชุมชนในปัจจุบัน", history_culture_head: "วิถีชีวิตและวัฒนธรรม", history_culture_desc: "คนในชุมชนบ้านซับประดู่มีความผูกพันกันอย่างลึกซึ้ง มีความเอื้อเฟื้อเผื่อแผ่ และยังคงรักษาขนบธรรมเนียมประเพณีท้องถิ่นไว้อย่างดีงาม ทั้งงานบุญกลางบ้าน และการรวมกลุ่มกันเพื่อพัฒนาหมู่บ้าน",
+
+        // หน้าบุคลากร (Personnel)
+        personnel_title: "คณะกรรมการหมู่บ้าน", personnel_desc: "ผู้นำและบุคคลากรผู้ขับเคลื่อนการพัฒนาหมู่บ้านซับประดู่", badge_leader: "หัวหน้า", head_leader: "ผู้นำหมู่บ้าน", badge_committee: "คณะกรรมการ", head_committee: "คณะกรรมการหมู่บ้าน", badge_team: "ทีมงาน", head_team: "อาสาสมัครและทีมงานชุมชน"
+      },
+      en: {
+        brand_title: "Sub Pradu Village", brand_sub: "Official Community Website",
+        nav_home: "Home", nav_news: "News", nav_personnel: "Personnel", nav_contact: "Contact", nav_history: "History",
+        theme_light: "Light Mode", theme_dark: "Dark Mode", btn_back: "Back",
+
+        banner_title: "Welcome to Sub Pradu Village", banner_sub: "Official Community Website • News, Announcements & Info for Villagers",
+        section_news_title: "News &<br>Announcements", section_news_desc: "Latest news and updates from the community.", btn_more: "See More",
+        loading_news: "Loading activities.....", no_news: "No news found",
+        section_about_title: "Village History", section_about_desc: "Sub Pradu Village is a strong community located in a fertile area. The villagers engage in agriculture and traditional crafts, living a simple and caring lifestyle.", btn_history: "Read History",
+        stat_visitors: "Website Visitors", stat_news: "Total News",
+
+        footer_map: "Village Map", footer_contact: "Contact Us", footer_address: "Sub Pradu Village, Moo 6, Muak Lek Subdistrict, Muak Lek District, Saraburi 18180, Thailand", footer_phone: "084-353-6666 (Headman)", footer_follow: "Follow our news or contact us online", footer_copyright: "Sub Pradu | All Rights Reserved",
+
+        news_page_title: "Sub Pradu Village News", news_breaking: "Breaking News:", news_fetching: "Gathering latest news from Sub Pradu village...", news_search: "Search for topics or news details...", news_hot: "Today's News", news_contact_box: "Contact Village", news_contact_desc: "Report issues or ask for more info via LINE Official", btn_addline: "Add LINE Friend", btn_collapse: "Show Less", news_not_found: "News not found",
+
+        history_title: "History of Sub Pradu Village", history_intro_head: "Introduction", history_intro_desc: "Sub Pradu Village, Moo 6, located in Muak Lek, Saraburi, has an interesting founding history characterized by rich natural resources and a simple traditional lifestyle.", history_found_head: "Founding History", history_found_desc: "Originally a fertile forest with dense Pradu trees and year-round water sources, which gave the village its name. People migrated here to make a living in agriculture, eventually expanding into today's community.", history_culture_head: "Lifestyle & Culture", history_culture_desc: "The community shares a deep bond, generosity, and continues to preserve beautiful local traditions and community development gatherings.",
+
+        personnel_title: "Village Committee", personnel_desc: "Leaders and personnel driving the development of Sub Pradu village", badge_leader: "Head", head_leader: "Village Leaders", badge_committee: "Committee", head_committee: "Village Committee", badge_team: "Team", head_team: "Volunteers & Community Staff"
+      },
+      zh: {
+        brand_title: "萨普拉杜村", brand_sub: "官方社区网站",
+        nav_home: "首页", nav_news: "新闻", nav_personnel: "人员", nav_contact: "联系我们", nav_history: "历史",
+        theme_light: "白天模式", theme_dark: "夜间模式", btn_back: "返回",
+
+        banner_title: "欢迎来到萨普拉杜村", banner_sub: "官方社区网站 • 村民新闻、公告与信息",
+        section_news_title: "新闻<br>与公告", section_news_desc: "来自社区的最新新闻和更新。", btn_more: "了解更多",
+        loading_news: "正在加载活动.....", no_news: "未找到新闻",
+        section_about_title: "村庄历史", section_about_desc: "萨普拉杜村是一个位于肥沃地区的坚强社区。村民从事农业和传统手工业，过着简单而充满关爱的生活。在村委会的管理下，社区致力于不断提高生活质量。", btn_history: "阅读历史",
+        stat_visitors: "网站访问者", stat_news: "新闻总数",
+
+        footer_map: "村庄地图", footer_contact: "联系方式", footer_address: "泰国沙拉武里府莫克列区莫克列分区第6村，邮编 18180", footer_phone: "084-353-6666 (村长)", footer_follow: "关注我们的新闻或在线联系我们", footer_copyright: "萨普拉杜 | 版权所有",
+
+        news_page_title: "萨普拉杜村新闻", news_breaking: "突发新闻:", news_fetching: "正在收集萨普拉杜村最新新闻...", news_search: "搜索主题或新闻详情...", news_hot: "今日新闻", news_contact_box: "联系村庄", news_contact_desc: "通过 LINE Official 举报问题或询问更多信息", btn_addline: "添加 LINE 好友", btn_collapse: "收起", news_not_found: "未找到您搜索的新闻",
+
+        history_title: "萨普拉杜村的历史", history_intro_head: "简介", history_intro_desc: "位于沙拉武里莫克列的萨普拉杜村第6村，拥有有趣的建村历史，其特点是丰富的自然资源和简单传统的乡村生活。", history_found_head: "建村历史", history_found_desc: "这里原本是一片肥沃的森林，长满了茂密的红木树，并拥有常年不断的水源，村庄因此得名。人们迁移到这里从事农业谋生，最终发展成为今天的社区。", history_culture_head: "生活方式与文化", history_culture_desc: "社区之间有着深厚的感情，慷慨大方，并继续保留着美丽的当地传统和社区发展聚会。",
+
+        personnel_title: "村委会", personnel_desc: "推动萨普拉杜村发展的领导人和工作人员", badge_leader: "主管", head_leader: "村领导", badge_committee: "委员会", head_committee: "村委会", badge_team: "团队", head_team: "志愿者和社区工作人员"
+      }
+    };
+
+    // ============================================
+    // ฟังก์ชันเปลี่ยนภาษาหลัก
+    // ============================================
+    function setLanguage(lang) {
+      localStorage.setItem("app_lang", lang);
+      const displayMap = { th: "TH", en: "EN", zh: "ZH" };
+      const langDisplay = document.getElementById("current-lang-display");
+      if (langDisplay) langDisplay.innerText = displayMap[lang];
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      const langDropdown = document.getElementById("langDropdown");
+      if (langDropdown) langDropdown.classList.remove("active");
+
+      updateThemeTextOnly();
+    }
+
+    // จัดการเปิด/ปิด เมนูเลือกภาษา และโหลดภาษาเริ่มต้นตอนเปิดเว็บ
+    document.addEventListener("DOMContentLoaded", () => {
+      // Set Theme class instantly to body if present
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+      }
+
+      const langDropdown = document.getElementById("langDropdown");
+      if (langDropdown) {
+        const langBtn = langDropdown.querySelector(".lang-btn");
+        langBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          langDropdown.classList.toggle("active");
+        });
+        document.addEventListener("click", (e) => {
+          if (!langDropdown.contains(e.target)) langDropdown.classList.remove("active");
+        });
+      }
+
+      // โหลดภาษา
+      const savedLang = localStorage.getItem("app_lang") || "th";
+      setLanguage(savedLang);
+    });
+
+    // ============================================
+    // ส่วนอื่นๆ 
+    // ============================================
+    function escapeHTML(str) {
+      if (!str) return "";
+      return str.toString().replace(/[&<>'"]/g, function (tag) {
+        const charsToReplace = { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' };
+        return charsToReplace[tag] || tag;
+      });
+    }
+
+    const API_URL = "https://script.google.com/macros/s/AKfycbwzN3twd-y3hkRqqhP0-HOtj-181zii3YI-qktN2O9yh2IRFESVDWwlbgaMSQRxBdhfFA/exec";
+    const API_KEY = "SuppradooSecret_2024";
+
+    async function fetchHomeNews() {
+      try {
+        const response = await fetch(`${API_URL}?key=${API_KEY}`);
+        const json = await response.json();
+        if (!json.success) throw new Error(json.error);
+
+        const allRows = json.data;
+        const totalNews = allRows.length;
+        const countElement2 = document.getElementById("news-count");
+        if (countElement2) countElement2.innerText = totalNews;
+
+        const sliderRows = allRows.slice(0, 6);
+        const container = document.getElementById("home-news-slider");
+
+        if (sliderRows.length > 0) {
+          container.innerHTML = sliderRows
+            .map((n) => `
+                <div class="project-card">
+                    <img src="${escapeHTML(n.img)}" onerror="this.src='logo/logo.png'" alt="${escapeHTML(n.title)}">
+                    <div class="card-title">${escapeHTML(n.title)}</div>
+                </div>
+            `).join("");
+        } else {
+          const currentLang = localStorage.getItem("app_lang") || "th";
+          container.innerHTML = `<p style="padding:20px;">${translations[currentLang].no_news}</p>`;
+        }
+      } catch (error) {
+        console.error("Error loading news:", error);
+      }
+    }
+
+    async function countVisits() {
+      try {
+        const STORAGE_KEY = "visited_subpradu_homepage";
+        const hasVisited = localStorage.getItem(STORAGE_KEY);
+        let response;
+        if (!hasVisited) {
+          response = await fetch("https://api.counterapi.dev/v1/visited_subpradu_homepage/homepage/up");
+          localStorage.setItem(STORAGE_KEY, "true");
+        } else {
+          response = await fetch("https://api.counterapi.dev/v1/visited_subpradu_homepage/homepage/");
+        }
+        const data = await response.json();
+        const counterElement = document.getElementById("website-visits");
+        if (counterElement) counterElement.innerText = data.count.toLocaleString();
+      } catch (error) {
+        console.error("นับยอดวิวไม่สำเร็จ:", error);
+      }
+    }
+
+    window.onload = function () {
+      if (typeof fetchHomeNews === "function") fetchHomeNews();
+      countVisits();
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const hamburger = document.getElementById("hamburger");
+      const mobileNav = document.getElementById("mobileNav");
+      if (hamburger && mobileNav) {
+        hamburger.addEventListener("click", function () {
+          const open = mobileNav.classList.toggle("open");
+          hamburger.setAttribute("aria-expanded", String(open));
+        });
+        document.addEventListener('click', (e) => {
+          if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+            mobileNav.classList.remove('open');
+            hamburger.setAttribute("aria-expanded", false);
+          }
+        });
+      }
+    });
+
+    window.addEventListener("scroll", function () {
+      const backToTop = document.getElementById("backToTop");
+      if (backToTop) {
+        if (window.scrollY > 200) backToTop.classList.add("show");
+        else backToTop.classList.remove("show");
+      }
+    });
+
+    function updateThemeTextOnly() {
+      const body = document.body;
+      const themeText = document.querySelector(".theme-text");
+      const currentLang = localStorage.getItem("app_lang") || "th";
+      if (themeText) {
+        if (body.classList.contains("dark-mode")) {
+          themeText.innerText = translations[currentLang].theme_light;
+        } else {
+          themeText.innerText = translations[currentLang].theme_dark;
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const themeToggleBtn = document.getElementById("themeToggle");
+      const body = document.body;
+      const themeText = themeToggleBtn ? themeToggleBtn.querySelector(".theme-text") : null;
+
+      const moonSvg = '<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />';
+      const sunSvg = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />';
+      const svgGraphic = themeToggleBtn ? themeToggleBtn.querySelector("svg") : null;
+
+      function updateThemeBtn(isDark) {
+        if (!themeText || !svgGraphic) return;
+        const currentLang = localStorage.getItem("app_lang") || "th";
+        if (isDark) {
+          themeText.innerText = translations[currentLang].theme_light;
+          svgGraphic.innerHTML = sunSvg;
+        } else {
+          themeText.innerText = translations[currentLang].theme_dark;
+          svgGraphic.innerHTML = moonSvg;
+        }
+      }
+
+      if (localStorage.getItem("theme") === "dark") {
+        updateThemeBtn(true);
+      } else {
+        updateThemeBtn(false);
+      }
+
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          body.classList.toggle("dark-mode");
+          const isDark = body.classList.contains("dark-mode");
+          if (isDark) {
+            localStorage.setItem("theme", "dark");
+            updateThemeBtn(true);
+          } else {
+            localStorage.setItem("theme", "light");
+            updateThemeBtn(false);
+          }
+        });
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#' || targetId === '#top-page') return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          const headerOffset = 100;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+
+          const mobileNav = document.getElementById("mobileNav");
+          const hamburger = document.getElementById("hamburger");
+          if (mobileNav && mobileNav.classList.contains("open")) {
+            mobileNav.classList.remove("open");
+            if (hamburger) hamburger.setAttribute("aria-expanded", false);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
